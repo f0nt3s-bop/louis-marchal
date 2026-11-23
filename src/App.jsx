@@ -1,5 +1,8 @@
 import React, { useRef, useState } from 'react'
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
+import photoCamille from './assets/camille.jpg'
+import photoInes from './assets/ines.jpg'
+import photoLaurent from './assets/laurent.jpg'
 
 const MENU = ['Parfums', 'Soins du corps', 'Soins du visage', 'Manucure', 'Produits spa', 'Boutiques']
 
@@ -269,9 +272,9 @@ function Parcours() {
 }
 
 const VIDEOS = [
-  { nom: '[Prénom]', role: 'Manager de production' },
-  { nom: '[Prénom]', role: 'Manager en laboratoire' },
-  { nom: '[Prénom]', role: 'Tuteur senior' },
+  { nom: 'Camille', role: 'Manager de production', photo: photoCamille },
+  { nom: 'Inès', role: 'Manager en laboratoire', photo: photoInes },
+  { nom: 'Laurent', role: 'Tuteur senior', photo: photoLaurent },
 ]
 
 function Journees() {
@@ -286,15 +289,14 @@ function Journees() {
         <div className="grid gap-8 md:grid-cols-3">
           {VIDEOS.map((v, i) => (
             <Apparition key={v.role} delai={i * 0.15}>
-              <button type="button" className="group block w-full text-left" aria-label={`Lire la vidéo : une journée avec ${v.role.toLowerCase()} (emplacement)`}>
+              <button type="button" className="group block w-full text-left" aria-label={`Lire la vidéo : une journée avec ${v.nom}, ${v.role.toLowerCase()}`}>
                 <div className="relative aspect-[4/5] overflow-hidden border border-ivoire/10 bg-gradient-to-b from-nuit to-[#E8DCC8]">
-                  <div className="absolute inset-0 flex items-center justify-center transition-transform duration-700 group-hover:scale-105">
-                    <Couronne className="h-24 w-36 text-ivoire/5" />
-                  </div>
-                  <span className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-or/70 text-or transition-all duration-500 group-hover:scale-110 group-hover:bg-or group-hover:text-encre" aria-hidden="true">
+                  <img src={v.photo} alt="" className="absolute inset-0 h-full w-full object-cover grayscale-[35%] sepia-[20%] transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0 group-hover:sepia-0" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#1E1A16]/70 via-transparent to-transparent" aria-hidden="true" />
+                  <span className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/80 bg-white/15 text-white backdrop-blur-sm transition-all duration-500 group-hover:scale-110 group-hover:bg-or group-hover:border-or" aria-hidden="true">
                     <svg width="18" height="18" viewBox="0 0 18 18"><path d="M5 2 L16 9 L5 16 Z" fill="currentColor" /></svg>
                   </span>
-                  <span className="absolute bottom-5 left-5 text-[11px] uppercase tracking-[0.3em] text-brume">Vidéo · 2 min</span>
+                  <span className="absolute bottom-5 left-5 text-[11px] uppercase tracking-[0.3em] text-white">Vidéo · 2 min</span>
                 </div>
                 <p className="mt-5 font-serif text-2xl text-ivoire">{v.nom}</p>
                 <p className="text-sm uppercase tracking-[0.2em] text-or">{v.role}</p>
@@ -308,11 +310,11 @@ function Journees() {
 }
 
 const TEMOINS = [
-  { prenom: 'Camille', poste: 'Manager de production', initiale: 'C', photo: './temoignages/camille.jpg',
+  { prenom: 'Camille', poste: 'Manager de production', initiale: 'C', photo: photoCamille,
     texte: 'J’ai commencé par mon stage de Master. À l’embauche, j’avais déjà mon parcours écrit : je savais exactement où j’allais.' },
-  { prenom: 'Inès', poste: 'Manager en laboratoire', initiale: 'I', photo: './temoignages/ines.jpg',
+  { prenom: 'Inès', poste: 'Manager en laboratoire', initiale: 'I', photo: photoInes,
     texte: 'On ne m’a pas refait suivre ce que je savais déjà. La formation porte sur les savoir-faire de la maison, et ça change tout.' },
-  { prenom: 'Laurent', poste: 'Tuteur senior, 22 ans de maison', initiale: 'L', photo: './temoignages/laurent.jpg',
+  { prenom: 'Laurent', poste: 'Tuteur senior, 22 ans de maison', initiale: 'L', photo: photoLaurent,
     texte: 'Transmettre ce que j’ai appris ici aux nouveaux managers, c’est la plus belle reconnaissance de mon parcours.' },
 ]
 
@@ -352,9 +354,33 @@ function Temoignages() {
             </Apparition>
           ))}
         </div>
-        <p className="mt-10 text-center text-xs text-brume">Témoignages fictifs, rédigés pour ce projet étudiant.</p>
+        <p className="mt-10 text-center text-xs text-brume">Témoignages fictifs, rédigés pour ce projet étudiant. Portraits générés par IA, sous licence libre CC0.</p>
       </div>
     </section>
+  )
+}
+
+function Inscription() {
+  const [ouvert, setOuvert] = useState(false)
+  const [envoye, setEnvoye] = useState(false)
+  if (envoye) {
+    return <p role="status" className="border border-or/40 bg-encre px-5 py-4 text-sm text-ivoire">Merci, votre demande d’inscription est enregistrée. (Démonstration : aucun envoi réel.)</p>
+  }
+  if (!ouvert) {
+    return (
+      <button type="button" onClick={() => setOuvert(true)} className="border border-or bg-or px-8 py-4 text-sm font-medium uppercase tracking-[0.2em] text-encre transition-colors hover:border-ordoux hover:bg-ordoux">
+        S’inscrire
+      </button>
+    )
+  }
+  return (
+    <form onSubmit={(e) => { e.preventDefault(); setEnvoye(true) }} className="flex flex-col gap-3">
+      <label className="text-xs uppercase tracking-[0.2em] text-brume" htmlFor="nom">Nom et prénom</label>
+      <input id="nom" required className="border border-ivoire/20 bg-encre px-4 py-3 text-ivoire outline-none focus:border-or" />
+      <label className="text-xs uppercase tracking-[0.2em] text-brume" htmlFor="courriel">E-mail</label>
+      <input id="courriel" type="email" required className="border border-ivoire/20 bg-encre px-4 py-3 text-ivoire outline-none focus:border-or" />
+      <button type="submit" className="mt-2 border border-or bg-or px-8 py-4 text-sm font-medium uppercase tracking-[0.2em] text-encre transition-colors hover:border-ordoux hover:bg-ordoux">Valider</button>
+    </form>
   )
 }
 
@@ -373,11 +399,11 @@ function LabDay() {
             </div>
             <div className="flex flex-col gap-5">
               <dl className="space-y-3 text-sm">
-                <div className="flex justify-between border-b border-ivoire/10 pb-3"><dt className="uppercase tracking-[0.2em] text-brume">Date</dt><dd className="text-ivoire">[DATE]</dd></div>
+                <div className="flex justify-between border-b border-ivoire/10 pb-3"><dt className="uppercase tracking-[0.2em] text-brume">Date</dt><dd className="text-ivoire">Jeudi 11 mars 2027</dd></div>
                 <div className="flex justify-between border-b border-ivoire/10 pb-3"><dt className="uppercase tracking-[0.2em] text-brume">Lieu</dt><dd className="text-ivoire">Fleury-les-Aubrais (45)</dd></div>
                 <div className="flex justify-between border-b border-ivoire/10 pb-3"><dt className="uppercase tracking-[0.2em] text-brume">Pour qui</dt><dd className="text-ivoire">Masters double compétence</dd></div>
               </dl>
-              <BoutonOr href="#">S’inscrire</BoutonOr>
+              <Inscription />
             </div>
           </div>
         </div>
