@@ -2,7 +2,7 @@ export default {
   content: ['./index.html', './src/**/*.{js,jsx}'],
   theme: {
     extend: {
-      colors: { encre: '#0E0E11', nuit: '#16161B', ivoire: '#F3EDE3', or: '#C9A96E', ordoux: '#E6D3A8', brume: '#A39E94' },
+      colors: { encre: '#FBF8F3', nuit: '#F3ECE1', ivoire: '#1E1A16', or: '#7E5E30', ordoux: '#634820', brume: '#5E564B' },
       fontFamily: { serif: ['"Cormorant Garamond"', 'Georgia', 'serif'], sans: ['Inter', 'Arial', 'sans-serif'] },
       keyframes: {
         defile: { from: { transform: 'translateX(0)' }, to: { transform: 'translateX(-50%)' } },

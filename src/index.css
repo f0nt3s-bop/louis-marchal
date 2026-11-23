@@ -3,7 +3,7 @@
 @tailwind utilities;
 html { scroll-behavior: smooth; }
 body { -webkit-font-smoothing: antialiased; }
-.grain::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .06;
+.grain::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .035;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
-.texte-or { background: linear-gradient(110deg, #C9A96E 20%, #F3E3BE 40%, #C9A96E 60%); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; }
+.texte-or { background: linear-gradient(110deg, #7E5E30 20%, #B8925A 40%, #7E5E30 60%); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }

@@ -65,7 +65,7 @@ function BoutonOr({ href, children }) {
   return (
     <a
       href={href}
-      className="group relative inline-flex items-center justify-center overflow-hidden border border-or bg-or px-8 py-4 text-sm font-medium uppercase tracking-[0.2em] text-encre transition-colors hover:bg-ordoux"
+      className="group relative inline-flex items-center justify-center overflow-hidden border border-or bg-or px-8 py-4 text-sm font-medium uppercase tracking-[0.2em] text-encre transition-colors hover:bg-ordoux hover:border-ordoux"
     >
       <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-1000 group-hover:translate-x-full" aria-hidden="true" />
       <span className="relative">{children}</span>
@@ -77,7 +77,7 @@ function BoutonFin({ href, children }) {
   return (
     <a
       href={href}
-      className="inline-flex items-center justify-center border border-ivoire/30 px-8 py-4 text-sm font-medium uppercase tracking-[0.2em] text-ivoire transition-colors hover:border-or hover:text-ordoux"
+      className="inline-flex items-center justify-center border border-ivoire/40 px-8 py-4 text-sm font-medium uppercase tracking-[0.2em] text-ivoire transition-colors hover:border-or hover:text-ordoux"
     >
       {children}
     </a>
@@ -127,7 +127,7 @@ function Hero() {
         setPos({ x: ((e.clientX - r.left) / r.width) * 100, y: ((e.clientY - r.top) / r.height) * 100 })
       }}
       className="grain relative flex min-h-screen items-center justify-center overflow-hidden px-6 pb-24 pt-32"
-      style={{ background: `radial-gradient(700px circle at ${pos.x}% ${pos.y}%, rgba(201,169,110,0.13), transparent 60%), #0E0E11` }}
+      style={{ background: `radial-gradient(700px circle at ${pos.x}% ${pos.y}%, rgba(158,120,62,0.12), transparent 60%), #FBF8F3` }}
     >
       <div className="pointer-events-none absolute inset-6 border border-or/20 sm:inset-10" aria-hidden="true" />
       <div className="pointer-events-none absolute inset-8 border border-or/10 sm:inset-12" aria-hidden="true" />
@@ -213,7 +213,7 @@ function Engagements() {
         <div className="grid gap-6 md:grid-cols-3">
           {ENGAGEMENTS.map((e, i) => (
             <Apparition key={e.n} delai={i * 0.15}>
-              <article className="group relative h-full border border-ivoire/10 bg-nuit p-10 transition-all duration-500 hover:-translate-y-1 hover:border-or/60 hover:shadow-[0_0_60px_-20px_rgba(201,169,110,0.5)]">
+              <article className="group relative h-full border border-ivoire/10 bg-nuit p-10 transition-all duration-500 hover:-translate-y-1 hover:border-or/60 hover:shadow-[0_20px_60px_-25px_rgba(126,94,48,0.45)]">
                 <p className="texte-or font-serif text-6xl transition-all group-hover:animate-brille">{e.n}</p>
                 <h3 className="mt-6 font-serif text-3xl text-ivoire">{e.titre}</h3>
                 <p className="mt-4 font-light leading-relaxed text-brume">{e.texte}</p>
@@ -287,7 +287,7 @@ function Journees() {
           {VIDEOS.map((v, i) => (
             <Apparition key={v.role} delai={i * 0.15}>
               <button type="button" className="group block w-full text-left" aria-label={`Lire la vidéo : une journée avec ${v.role.toLowerCase()} (emplacement)`}>
-                <div className="relative aspect-[4/5] overflow-hidden border border-ivoire/10 bg-gradient-to-b from-nuit to-[#1d1c22]">
+                <div className="relative aspect-[4/5] overflow-hidden border border-ivoire/10 bg-gradient-to-b from-nuit to-[#E8DCC8]">
                   <div className="absolute inset-0 flex items-center justify-center transition-transform duration-700 group-hover:scale-105">
                     <Couronne className="h-24 w-36 text-ivoire/5" />
                   </div>
@@ -302,6 +302,57 @@ function Journees() {
             </Apparition>
           ))}
         </div>
+      </div>
+    </section>
+  )
+}
+
+const TEMOINS = [
+  { prenom: 'Camille', poste: 'Manager de production', initiale: 'C', photo: './temoignages/camille.jpg',
+    texte: 'J’ai commencé par mon stage de Master. À l’embauche, j’avais déjà mon parcours écrit : je savais exactement où j’allais.' },
+  { prenom: 'Inès', poste: 'Manager en laboratoire', initiale: 'I', photo: './temoignages/ines.jpg',
+    texte: 'On ne m’a pas refait suivre ce que je savais déjà. La formation porte sur les savoir-faire de la maison, et ça change tout.' },
+  { prenom: 'Laurent', poste: 'Tuteur senior, 22 ans de maison', initiale: 'L', photo: './temoignages/laurent.jpg',
+    texte: 'Transmettre ce que j’ai appris ici aux nouveaux managers, c’est la plus belle reconnaissance de mon parcours.' },
+]
+
+function Photo({ src, initiale, alt }) {
+  const [erreur, setErreur] = useState(false)
+  if (erreur) {
+    return (
+      <div className="flex h-24 w-24 items-center justify-center rounded-full border border-or bg-nuit font-serif text-4xl text-or" aria-hidden="true">
+        {initiale}
+      </div>
+    )
+  }
+  return <img src={src} alt={alt} onError={() => setErreur(true)} className="h-24 w-24 rounded-full border border-or object-cover p-1" />
+}
+
+function Temoignages() {
+  return (
+    <section className="grain relative bg-nuit px-6 py-28">
+      <div className="mx-auto max-w-6xl">
+        <Apparition className="mb-16 text-center">
+          <p className="mb-4 text-xs uppercase tracking-[0.4em] text-or">Ils nous ont rejoints</p>
+          <h2 className="font-serif text-4xl text-ivoire sm:text-5xl">Témoignages</h2>
+          <div className="mt-6"><Ornement /></div>
+        </Apparition>
+        <div className="grid gap-8 md:grid-cols-3">
+          {TEMOINS.map((t, i) => (
+            <Apparition key={t.prenom} delai={i * 0.15}>
+              <figure className="flex h-full flex-col items-center border border-or/30 bg-encre px-8 py-10 text-center transition-all duration-500 hover:-translate-y-1 hover:border-or">
+                <Photo src={t.photo} initiale={t.initiale} alt={`Portrait de ${t.prenom}`} />
+                <span className="mt-6 font-serif text-5xl leading-none text-or" aria-hidden="true">“</span>
+                <blockquote className="font-serif text-xl italic leading-relaxed text-ivoire">{t.texte}</blockquote>
+                <figcaption className="mt-6">
+                  <p className="font-serif text-2xl text-ivoire">{t.prenom}</p>
+                  <p className="text-xs uppercase tracking-[0.25em] text-or">{t.poste}</p>
+                </figcaption>
+              </figure>
+            </Apparition>
+          ))}
+        </div>
+        <p className="mt-10 text-center text-xs text-brume">Témoignages fictifs, rédigés pour ce projet étudiant.</p>
       </div>
     </section>
   )
@@ -369,6 +420,7 @@ export default function App() {
         <Engagements />
         <Parcours />
         <Journees />
+        <Temoignages />
         <LabDay />
       </main>
       <Pied />
